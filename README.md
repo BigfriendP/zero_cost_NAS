@@ -1,6 +1,6 @@
 # NASWOT
-Neural Architecture Search without training
-The network of the NATS bench can be evaluated for three different datasets: cifar 10, cifar100, ImageNet16-120.
+Neural Architecture Search without training.
+The networks of the NATS bench can be evaluated for three different datasets: cifar 10, cifar100, ImageNet16-120.
 The dataset to use can be decided changing the parameters in naswot.py args_dataset, args_data_loc respectively at row 49,50.
 
 ## cifar10
