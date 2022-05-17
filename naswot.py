@@ -146,7 +146,7 @@ for (uid, _) in enumerate(searchspace):
   gc.collect()
 
   print(uid, score, execution_time, searchspace.get_more_info(uid, args_dataset)['test-accuracy'])
-  results.append(uid, score, execution_time, searchspace.get_more_info(uid, args_dataset)['test-accuracy'])
+  results.append([uid, score, execution_time, searchspace.get_more_info(uid, args_dataset)['test-accuracy']])
 
 fields = ['uid', 'score', 'time', 'accuracy']
 
