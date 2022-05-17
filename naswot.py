@@ -26,6 +26,7 @@ import xautodl
 from xautodl.models import get_cell_based_tiny_net
 import time
 import gc
+import csv
 
 """## Parameters"""
 
@@ -35,7 +36,7 @@ args_seed = 0
 args_dataset = 'cifar10'
 args_data_loc = './data/cifar10'
 args_batch_size = 128
-args_save_loc = './results'
+args_save_loc = './results/'
 
 args_score = 'hook_logdet'
 
@@ -91,7 +92,8 @@ def counting_forward_hook(module, inp, out):
 
 """## Scores calculation"""
 
-results = np.zeros((len(searchspace),4))
+
+results = []
 
 for (uid, _) in enumerate(searchspace):
   
@@ -144,4 +146,13 @@ for (uid, _) in enumerate(searchspace):
   gc.collect()
 
   print(uid, score, execution_time, searchspace.get_more_info(uid, args_dataset)['test-accuracy'])
-  results[uid] = uid, score, execution_time, searchspace.get_more_info(uid, args_dataset)['test-accuracy']
+  results.append(uid, score, execution_time, searchspace.get_more_info(uid, args_dataset)['test-accuracy'])
+
+fields = ['uid', 'score', 'time', 'accuracy']
+
+with open(args_save_loc+args_dataset+'/scores.csv', 'w') as f:
+
+  write = csv.writer(f)
+      
+  write.writerow(fields)
+  write.writerows(results)
