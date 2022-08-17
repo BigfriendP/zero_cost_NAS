@@ -16,7 +16,7 @@ from metrics import compute_score_metric, compute_snip_score, compute_synflow_sc
 args_GPU = '0'
 args_seed = 0
 
-args_dataset = 'ImageNet16-120'
+args_dataset = 'cifar10'
 args_data_loc = './data/' + args_dataset
 args_batch_size = 128
 args_save_loc = './results'
@@ -109,7 +109,7 @@ if not(os.path.isdir(args_save_loc+'/'+args_dataset)):
 import csv
 
 fields = ['uid', 'score', 'time']
-with open(f'{args_save_loc}/{args_dataset}/{args_score}_end.csv', 'w') as f:
+with open(f'{args_save_loc}/{args_dataset}/{args_dataset}-{args_score}.csv', 'w') as f:
 
   write = csv.writer(f)
       
