@@ -27,7 +27,7 @@ device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
 """## Random Search Parameters"""
 args_nruns = 30
-args_nsamples = 1000
+args_nsamples = 500
 
 """## Reproducibility"""
 
