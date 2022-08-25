@@ -23,10 +23,6 @@ args_dataset = args.dataset
 args_score = args.score
 args_save_loc = args.save_loc
 
-#args_dataset = 'cifar10'
-#args_save_loc = './results'
-#args_score = 'hook_logdet'
-
 os.environ['CUDA_VISIBLE_DEVICES'] = args_GPU
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
