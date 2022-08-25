@@ -6,16 +6,26 @@ import os
 import copy
 from tqdm import trange
 import time
+import argparse
 
 """## Parameters"""
 
 args_GPU = '0'
 args_seed = 0
 
-args_dataset = 'cifar10'
-args_save_loc = './results'
+parser = argparse.ArgumentParser()
+parser.add_argument('--dataset', '-d', required=True, type=str, help='dataset on which to perform the search')
+parser.add_argument('--score', '-s', required=True, type=str, help='metrics used as proxy')
+parser.add_argument('--save_loc', default='./results', type=str, help='path to the directory where the csv are saved and where the progress files of the search will be saved')
+args = parser.parse_args()
 
-args_score = 'hook_logdet'
+args_dataset = args.dataset
+args_score = args.score
+args_save_loc = args.save_loc
+
+#args_dataset = 'cifar10'
+#args_save_loc = './results'
+#args_score = 'hook_logdet'
 
 os.environ['CUDA_VISIBLE_DEVICES'] = args_GPU
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")

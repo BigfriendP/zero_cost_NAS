@@ -10,18 +10,30 @@ import time
 import gc
 from dataset import get_data
 from metrics import compute_score_metric, compute_snip_score, compute_synflow_score
+import argparse
 
 """## Parameters"""
 
 args_GPU = '0'
 args_seed = 0
-
-args_dataset = 'cifar10'
-args_data_loc = './data/' + args_dataset
 args_batch_size = 128
-args_save_loc = './results'
 
-args_score = 'hook_logdet'
+parser = argparse.ArgumentParser()
+parser.add_argument('--dataset', '-d', required=True, type=str, help='dataset on which to calculate the metric')
+parser.add_argument('--score', '-s', required=True, type=str, help='metrics used as proxy of the test accuracy')
+parser.add_argument('--data_loc', default='./data/', type=str, help='path to the data directory')
+parser.add_argument('--save_loc', default='./results', type=str, help='path to the directory where to save the results')
+args = parser.parse_args()
+
+args_dataset = args.dataset
+args_score = args.score
+args_data_loc = args.data_loc + args_dataset
+args_save_loc = args.save_loc
+
+#args_dataset = 'cifar10'
+#args_data_loc = './data/' + args_dataset
+#args_save_loc = './results'
+#args_score = 'synflow'
 
 if not(os.path.isdir('data')):
   os.system("mkdir data")
