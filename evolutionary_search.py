@@ -28,7 +28,7 @@ device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
 """## Aging Evolution Parameters"""
 args_nruns = 30
-max_n_models = 1000 
+max_n_models = 500 
 pool_size = 64
 subpop_size = 10
 warmup = 0
