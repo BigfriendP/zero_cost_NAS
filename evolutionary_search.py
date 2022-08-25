@@ -5,24 +5,27 @@ import torch
 import os
 import copy
 from tqdm import trange
-from statistics import mean
-#import time
+import time
 
 """## Parameters"""
 
 args_GPU = '0'
 args_seed = 0
 
-args_dataset = 'ImageNet16-120'
-args_data_loc = './data/' + args_dataset
-args_batch_size = 128
+args_dataset = 'cifar10'
 args_save_loc = './results'
-args_nruns = 30
 
-args_score = 'snip'
+args_score = 'hook_logdet'
 
 os.environ['CUDA_VISIBLE_DEVICES'] = args_GPU
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+
+"""## Aging Evolution Parameters"""
+args_nruns = 30
+max_n_models = 1000 
+pool_size = 64
+subpop_size = 10
+warmup = 0
 
 """## Reproducibility"""
 
@@ -95,8 +98,7 @@ def random_combination(iterable, sample_size):
 def mutate_spec_zero_cost(old_spec):
     possible_specs = []
     metric_time = 0.0
-    #mut_time = 0.0
-    #start_time = time.time()
+    start_time = time.time()
     for idx_to_change in range(len(old_spec)): 
         entry_to_change = old_spec[idx_to_change]
         possible_entries = [x for x in range(5) if x != entry_to_change]
@@ -106,22 +108,26 @@ def mutate_spec_zero_cost(old_spec):
             metric_time += t[spec_to_idx[str(new_spec)]]
             possible_specs.append((proxy[spec_to_idx[str(new_spec)]], new_spec))
     best_new_spec = sorted(possible_specs, key=lambda i:i[0])[-1][1]
-    #mut_time = (time.time()-start_time)+metric_time
+    
     if random.random() > 0.75:
         best_new_spec = random.choice(possible_specs)[1]
-    return best_new_spec, metric_time,  #mut_time
+        metric_time = 0.0
+    end_time = time.time()
+    mutation_time = metric_time+ (end_time-start_time)
+    return best_new_spec, mutation_time  
 
 def run_evolution_search(max_visited_models=1000, 
                          pool_size=64, 
                          tournament_size=10, 
                          zero_cost_warmup=0):
   
-  best_proxy = 0.0
+  best_proxies, best_tests = [0.0],  [0.0]
   best_proxy_id = 0
   pool = []   # (proxy, spec) tuples
   num_visited_models = 0
   search_time = 0.0
   
+  start_time = time.time()
   # fill the initial pool
   pool_init_time = 0.0
   if zero_cost_warmup > 0:
@@ -145,19 +151,26 @@ def run_evolution_search(max_visited_models=1000,
     num_visited_models += 1
     pool.append((proxy[spec_idx], spec))
 
-    if proxy[spec_idx] > best_proxy:
-      best_proxy = proxy[spec_idx]
+    test_accuracy = searchspace.get_more_info(int(spec_idx), args_dataset, hp = '200')['test-accuracy']
+
+    if proxy[spec_idx] > best_proxies[-1]:
+      best_proxies.append(proxy[spec_idx])
       best_proxy_id = spec_idx
+      best_tests.append(test_accuracy)
+    else:
+      best_proxies.append(best_proxies[-1])
+      best_tests.append(best_tests[-1])
 
   search_time += pool_init_time
-  #print(f'inizial_pool: \nscore: {best_proxy}, id: {best_proxy_id}\n')
-
+  
   # After the pool is seeded, proceed with evolving the population.
   while(True):
+
+    # take a subsample of the population and choose the highest score network as parent of the new generation
     sample = random_combination(pool, tournament_size)   
     best_spec = sorted(sample, key=lambda i:i[0])[-1][1]
     
-    #mut_time
+    # metric based mutation
     new_spec, mut_time = mutate_spec_zero_cost(best_spec)
     num_visited_models += 1 
 
@@ -169,39 +182,55 @@ def run_evolution_search(max_visited_models=1000,
     pool.append((proxy[new_spec_idx], new_spec))
     pool.pop(0)
 
-    if proxy[new_spec_idx] > best_proxy:
-      best_proxy = proxy[new_spec_idx]
+    test_accuracy = searchspace.get_more_info(int(new_spec_idx), args_dataset, hp = '200')['test-accuracy']
+
+    if proxy[new_spec_idx] > best_proxies[-1]:
+      best_proxies.append(proxy[new_spec_idx])
       best_proxy_id = new_spec_idx
-      #print(f'\n{best_proxy_id}, {best_proxy}')
-    
-    #print(f'visited_mod: {i} \nid: {best_proxy_id} ; best proxy: {best_proxy}\n')
+      best_tests.append(test_accuracy)
+    else:
+      best_proxies.append(best_proxies[-1])
+      best_tests.append(best_tests[-1])
 
     if num_visited_models >= max_visited_models:
       break
-
-  #accuracy = searchspace.get_more_info(int(best_proxy_id), args_dataset, hp = '200')['test-accuracy']
   
-  return best_proxy_id, best_proxy, search_time
+  end_time = time.time()   
+  search_time += (end_time-start_time)
+  best_proxies.pop(0)    
+  best_tests.pop(0) 
+  best_accuracy = searchspace.get_more_info(int(best_proxy_id), args_dataset, hp = '200')['test-accuracy']
+
+  
+  return best_proxy_id, best_accuracy, best_proxies, best_tests, search_time
 
 
 runs = trange(args_nruns, desc='acc: ')
 top_acc = []
 search_times = []
+best_tests_progress = []
 
 for N in runs:
 
-  id_best_net, best_score, search_time = run_evolution_search(max_visited_models=80, 
-                                                   pool_size=64,
-                                                   tournament_size=10,
-                                                   zero_cost_warmup=0)
+  id_best_net, acc_best_net, best_proxies, best_tests, search_time = run_evolution_search(max_visited_models=max_n_models, 
+                                                   pool_size=pool_size,
+                                                   tournament_size=subpop_size,
+                                                   zero_cost_warmup=warmup)
   
-  acc_best_net = searchspace.get_more_info(int(id_best_net), args_dataset, hp = '200')['test-accuracy']
   
-  #print(f'\niteration: {N} \nid: {id_best_net} ; best_score: {best_score} ; acc_best_net: {acc_best_net}\n')
-
   top_acc.append(acc_best_net)
   search_times.append(search_time)
+  best_tests_progress.append(best_tests)
 
+if warmup == 0:
+  exp_name = 'AEVsearch'
+else:
+  exp_name = 'AEVsearchWU'
+
+# save the file containing the progress of the test accuracy of all the experiments
+np.save(f'{args_save_loc}/{args_dataset}/{args_score}/{exp_name}_{args_dataset}-{args_score}', best_tests_progress)
+
+# calculate the mean and std of the test accuracy and search time over all the experiments
 mean_acc = np.mean(top_acc)
 std_acc = np.std(top_acc)
 
@@ -211,4 +240,5 @@ std_time = np.std(search_times)
 print(f'\nmetric: {args_score} ; {args_dataset}\n')
 print("accuracy: {} + {}\n".format(mean_acc,std_acc))
 print("search time: {} + {}\n".format(mean_time,std_time))
+
 

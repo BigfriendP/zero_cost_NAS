@@ -52,7 +52,7 @@ os.makedirs(args_save_loc, exist_ok=True)
 
 """## NATS-Bench initialization"""
 
-#installing libraries and download of the benchmark file
+#installing libraries and download the benchmark file
 os.system("pip install nats_bench")
 if not(os.path.exists("NATS-tss-v1_0-3ffb9-simple")):
   os.system("wget 'https://www.dropbox.com/s/pasubh1oghex3g9/?dl=1' -O 'NATS-tss-v1_0-3ffb9-simple.tar'")
