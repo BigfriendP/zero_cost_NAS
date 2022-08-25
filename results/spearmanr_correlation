@@ -1,0 +1,64 @@
+# HOOK_LOGDET
+
+## CIFAR10
+
+metric: hook_logdet ; cifar10
+
+SpearmanrResult(correlation=0.7886365386325178, pvalue=0.0)
+
+## CIFAR100
+
+metric: hook_logdet ; cifar100
+
+SpearmanrResult(correlation=0.8060000930472611, pvalue=0.0)
+
+## IMAGENET16-120
+
+metric: hook_logdet ; ImageNet16-120
+
+SpearmanrResult(correlation=0.7840852957866952, pvalue=0.0)
+
+
+
+# SNIP
+
+## CIFAR10
+
+metric: snip ; cifar10
+
+SpearmanrResult(correlation=0.6370918375096243, pvalue=0.0)
+
+## CIFAR100
+
+metric: snip ; cifar100
+
+SpearmanrResult(correlation=0.6326030083643776, pvalue=0.0)
+
+## IMAGENET16-120
+
+metric: snip ; ImageNet16-120
+
+SpearmanrResult(correlation=0.5751964386725165, pvalue=0.0)
+
+
+
+# SYNFLOW
+
+## CIFAR10
+
+metric: synflow ; cifar10
+
+SpearmanrResult(correlation=0.7752050731614297, pvalue=0.0)
+
+## CIFAR100
+
+metric: synflow ; cifar100
+
+SpearmanrResult(correlation=0.7605518184550878, pvalue=0.0)
+
+## IMAGENET16-120
+
+metric: synflow ; ImageNet16-120
+
+SpearmanrResult(correlation=0.751185297813984, pvalue=0.0)
+
