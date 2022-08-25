@@ -30,11 +30,6 @@ args_score = args.score
 args_data_loc = args.data_loc + args_dataset
 args_save_loc = args.save_loc
 
-#args_dataset = 'cifar10'
-#args_data_loc = './data/' + args_dataset
-#args_save_loc = './results'
-#args_score = 'synflow'
-
 if not(os.path.isdir('data')):
   os.system("mkdir data")
 
