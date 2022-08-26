@@ -1,20 +1,20 @@
+import os
+# install xautodl package if it is not installed
+os.system("pip install xautodl")
+
 import random
 import numpy as np
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-import os
 import time
+import xautodl
+from xautodl.models import get_cell_based_tiny_net
 import gc
 from dataset import get_data
 from metrics import compute_score_metric, compute_snip_score, compute_synflow_score
 import argparse
 
-# install xautodl package if it is not installed
-os.system("pip install xautodl")
-
-import xautodl
-from xautodl.models import get_cell_based_tiny_net
 
 """## Parameters"""
 
