@@ -22,6 +22,17 @@ args_dataset = args.dataset
 args_score = args.score
 args_save_loc = args.save_loc
 
+#check if the input are valid
+valid_datasets = ['cifar10', 'cifar100', 'ImageNet16-120']
+valid_metrics = ['val12', 'hook_logdet', 'synflow', 'snip', 'combined']
+
+if args_dataset not in valid_datasets:
+  print('ERROR -> INVALID DATASET: dataset must be cifar10 or cifar100 or ImageNet16-120')
+  quit()
+if args_score not in valid_metrics:
+  print('ERROR -> INVALID metric: metric must be hook_logdet or synflow or snip')
+  quit()
+
 os.environ['CUDA_VISIBLE_DEVICES'] = args_GPU
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
