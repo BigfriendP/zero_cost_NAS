@@ -236,7 +236,7 @@ else:
 # save the file containing the progress of the test accuracy of all the experiments
 np.save(f'{args_save_loc}/{args_dataset}/{args_score}/{exp_name}_{args_dataset}-{args_score}', best_tests_progress)
 
-print(f'test accuracy progress file saved at {args_save_loc}/{args_dataset}/{args_score}/')
+print(f'aging evolutionary search test accuracy progress file saved at {args_save_loc}/{args_dataset}/{args_score}/')
 
 # calculate the mean and std of the test accuracy and search time over all the experiments
 mean_acc = np.mean(top_acc)
