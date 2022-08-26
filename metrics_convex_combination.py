@@ -2,21 +2,21 @@ import pandas as pd
 from scipy import stats
 import math
 
-"""## Reading relu_score and synflow CSV files for each dataset"""
+"""## Reading hook_logdet and synflow CSV files for each dataset"""
 
 # importing cifar10 scores
-cifar10_relu_csv = pd.read_csv('results/cifar10/hook_logdet/cifar10-hook_logdet.csv')
-cifar10_relu_csv.replace(to_replace=-math.inf, value=0.0, inplace=True)
+cifar10_hook_logdet_csv = pd.read_csv('results/cifar10/hook_logdet/cifar10-hook_logdet.csv')
+cifar10_hook_logdet_csv.replace(to_replace=-math.inf, value=0.0, inplace=True)
 cifar10_synflow_csv = pd.read_csv('results/cifar10/synflow/cifar10-synflow.csv')
 
 # importing cifar100 scores
-cifar100_relu_csv = pd.read_csv('results/cifar100/hook_logdet/cifar100-hook_logdet.csv')
-cifar100_relu_csv.replace(to_replace=-math.inf, value=0.0, inplace=True)
+cifar100_hook_logdet_csv = pd.read_csv('results/cifar100/hook_logdet/cifar100-hook_logdet.csv')
+cifar100_hook_logdet_csv.replace(to_replace=-math.inf, value=0.0, inplace=True)
 cifar100_synflow_csv = pd.read_csv('results/cifar100/synflow/cifar100-synflow.csv')
 
 # importing imagenet scores
-imagenet_relu_csv = pd.read_csv('results/ImageNet16-120/hook_logdet/ImageNet16-120-hook_logdet.csv')
-imagenet_relu_csv.replace(to_replace=-math.inf, value=0.0, inplace=True)
+imagenet_hook_logdet_csv = pd.read_csv('results/ImageNet16-120/hook_logdet/ImageNet16-120-hook_logdet.csv')
+imagenet_hook_logdet_csv.replace(to_replace=-math.inf, value=0.0, inplace=True)
 imagenet_synflow_csv = pd.read_csv('results/ImageNet16-120/synflow/ImageNet16-120-synflow.csv')
 
 # importing accuracies full trained models
@@ -30,23 +30,23 @@ imagenet_test_acc = pd.read_csv('accuracy_full_trained_models/accuracy_ImageNet1
 """
 
 # normalizing scores
-cifar10_relu_csv['score'] = (cifar10_relu_csv['score']-cifar10_relu_csv['score'].min())/(cifar10_relu_csv['score'].max()-cifar10_relu_csv['score'].min())
+cifar10_hook_logdet_csv['score'] = (cifar10_hook_logdet_csv['score']-cifar10_hook_logdet_csv['score'].min())/(cifar10_hook_logdet_csv['score'].max()-cifar10_hook_logdet_csv['score'].min())
 cifar10_synflow_csv['synflow'] = (cifar10_synflow_csv['synflow']-cifar10_synflow_csv['synflow'].min())/(cifar10_synflow_csv['synflow'].max()-cifar10_synflow_csv['synflow'].min())
 
-cifar100_relu_csv['score'] = (cifar100_relu_csv['score']-cifar100_relu_csv['score'].min())/(cifar100_relu_csv['score'].max()-cifar100_relu_csv['score'].min())
+cifar100_hook_logdet_csv['score'] = (cifar100_hook_logdet_csv['score']-cifar100_hook_logdet_csv['score'].min())/(cifar100_hook_logdet_csv['score'].max()-cifar100_hook_logdet_csv['score'].min())
 cifar100_synflow_csv['synflow'] = (cifar100_synflow_csv['synflow']-cifar100_synflow_csv['synflow'].min())/(cifar100_synflow_csv['synflow'].max()-cifar100_synflow_csv['synflow'].min())
 
-imagenet_relu_csv['score'] = (imagenet_relu_csv['score']-imagenet_relu_csv['score'].min())/(imagenet_relu_csv['score'].max()-imagenet_relu_csv['score'].min())
+imagenet_hook_logdet_csv['score'] = (imagenet_hook_logdet_csv['score']-imagenet_hook_logdet_csv['score'].min())/(imagenet_hook_logdet_csv['score'].max()-imagenet_hook_logdet_csv['score'].min())
 imagenet_synflow_csv['synflow'] = (imagenet_synflow_csv['synflow']-imagenet_synflow_csv['synflow'].min())/(imagenet_synflow_csv['synflow'].max()-imagenet_synflow_csv['synflow'].min())
 
 '''# standardizing scores
-cifar10_relu_csv['score'] = (cifar10_relu_csv['score']-cifar10_relu_csv['score'].mean())/cifar10_relu_csv['score'].std()
+cifar10_hook_logdet_csv['score'] = (cifar10_hook_logdet_csv['score']-cifar10_hook_logdet_csv['score'].mean())/cifar10_hook_logdet_csv['score'].std()
 cifar10_synflow_csv['synflow'] = (cifar10_synflow_csv['synflow']-cifar10_synflow_csv['synflow'].mean())/cifar10_synflow_csv['synflow'].std()
 
-cifar100_relu_csv['score'] = (cifar100_relu_csv['score']-cifar100_relu_csv['score'].mean())/cifar100_relu_csv['score'].std()
+cifar100_hook_logdet_csv['score'] = (cifar100_hook_logdet_csv['score']-cifar100_hook_logdet_csv['score'].mean())/cifar100_hook_logdet_csv['score'].std()
 cifar100_synflow_csv['synflow'] = (cifar100_synflow_csv['synflow']-cifar100_synflow_csv['synflow'].mean())/cifar100_synflow_csv['synflow'].std()
 
-imagenet_relu_csv['score'] = (imagenet_relu_csv['score']-imagenet_relu_csv['score'].mean())/imagenet_relu_csv['score'].std()
+imagenet_hook_logdet_csv['score'] = (imagenet_hook_logdet_csv['score']-imagenet_hook_logdet_csv['score'].mean())/imagenet_hook_logdet_csv['score'].std()
 imagenet_synflow_csv['synflow'] = (imagenet_synflow_csv['synflow']-imagenet_synflow_csv['synflow'].mean())/imagenet_synflow_csv['synflow'].std()'''
 
 """## Creating the CSV files containing the combined metrics"""
@@ -54,7 +54,7 @@ imagenet_synflow_csv['synflow'] = (imagenet_synflow_csv['synflow']-imagenet_synf
 # trying different coefficients for the convex combinations
 coeff = {"Comb1": 0.2, "Comb2": 0.4, "Comb3": 0.5, "Comb4": 0.6, "Comb5": 0.8}
 
-datasets = {"cifar10": (cifar10_relu_csv, cifar10_synflow_csv), "cifar100": (cifar100_relu_csv, cifar100_synflow_csv), "ImageNet16-120": (imagenet_relu_csv, imagenet_synflow_csv)}
+datasets = {"cifar10": (cifar10_hook_logdet_csv, cifar10_synflow_csv), "cifar100": (cifar100_hook_logdet_csv, cifar100_synflow_csv), "ImageNet16-120": (imagenet_hook_logdet_csv, imagenet_synflow_csv)}
 
 convex_comb_csv = {"cifar10": [], "cifar100":[], "ImageNet16-120":[]}
 
@@ -90,7 +90,7 @@ cifar10_corr.sort(key=lambda y: y[1], reverse = True)
 cifar100_corr.sort(key=lambda y: y[1], reverse = True)
 imagenet_corr.sort(key=lambda y: y[1], reverse = True)
 
-print('convex combination of relu score and synflow: alpha*relu_score + (1-alpha)*synflow  \n')
+print('convex combination of hook_logdet score and synflow: alpha*hook_logdet + (1-alpha)*synflow  \n')
 print('comb1: alpha = 0.2 \t comb2: alpha = 0.4 \t comb3: alpha = 0.5 \t comb4: alpha = 0.6 \t comb5: alpha = 0.8 \n')
 
 print('spearman correlations among different convex combinations and the test accuracy for each dataset sort by descending correlation: \n')
