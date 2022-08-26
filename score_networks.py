@@ -78,7 +78,6 @@ searchspace = create('NATS-tss-v1_0-3ffb9-simple', 'tss', fast_mode=True, verbos
 """## Scoring Network cycle"""
 
 results = []
-print(f'{args_score} score for {args_dataset} saved at {args_save_loc}/{args_dataset}/')
 print('uid,\t score,\t execution_time')
 for uid in range(len(searchspace)):
   config = searchspace.get_net_config(uid, args_dataset)
