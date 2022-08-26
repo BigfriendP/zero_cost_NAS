@@ -79,6 +79,7 @@ searchspace = create('NATS-tss-v1_0-3ffb9-simple', 'tss', fast_mode=True, verbos
 
 results = []
 
+print('uid,  score,  execution_time')
 for uid in range(len(searchspace)):
   config = searchspace.get_net_config(uid, args_dataset)
   network = get_cell_based_tiny_net(config)
@@ -110,7 +111,7 @@ for uid in range(len(searchspace)):
   torch.cuda.empty_cache()
   gc.collect()
 
-  print(uid, score, execution_time)
+  print(uid,',',score,',',execution_time)
   results.append([uid, score, execution_time])
 
 import os
