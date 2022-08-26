@@ -90,10 +90,10 @@ cifar10_corr.sort(key=lambda y: y[1], reverse = True)
 cifar100_corr.sort(key=lambda y: y[1], reverse = True)
 imagenet_corr.sort(key=lambda y: y[1], reverse = True)
 
-print('convex combination of relu score and synflow: alpha*hook_lodget + (1-alpha)*synflow  \n')
+print('convex combination of relu score and synflow: alpha*relu_score + (1-alpha)*synflow  \n')
 print('comb1: alpha = 0.2 \t comb2: alpha = 0.4 \t comb3: alpha = 0.5 \t comb4: alpha = 0.6 \t comb5: alpha = 0.8 \n')
 
-print('spearman correlations among different convex combinations and the test accuracy for each dataset: \n')
+print('spearman correlations among different convex combinations and the test accuracy for each dataset sort by descending correlation: \n')
 print('cifar10:')
 print(cifar10_corr,'\n')
 print('cifar100:')
