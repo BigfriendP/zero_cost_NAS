@@ -93,7 +93,7 @@ imagenet_corr.sort(key=lambda y: y[1], reverse = True)
 print('convex combination of hook_logdet score and synflow: alpha*hook_logdet + (1-alpha)*synflow  \n')
 print('comb1: alpha = 0.2 \t comb2: alpha = 0.4 \t comb3: alpha = 0.5 \t comb4: alpha = 0.6 \t comb5: alpha = 0.8 \n')
 
-print('spearman correlations among different convex combinations and the test accuracy for each dataset sort by descending correlation: \n')
+print('spearman correlations among different convex combinations and the test accuracy for each dataset, sorted by descending correlation: \n')
 print('cifar10:')
 print(cifar10_corr,'\n')
 print('cifar100:')
@@ -124,3 +124,5 @@ imagenet_comb['time'] = imagenet_convex_comb['time']
 cifar10_comb.to_csv("results/cifar10/combined/cifar10-combined.csv", index = False) 
 cifar100_comb.to_csv("results/cifar100/combined/cifar100-combined.csv", index = False)
 imagenet_comb.to_csv("results/ImageNet16-120/combined/ImageNet16-120-combined.csv", index = False)
+
+print('best convex combination CSV files for cifar10, cifar100 and ImageNet16-120 saved respectively at results/cifar10/combined/, results/cifar100/combined/ and results/ImageNet16-120/combined/')
