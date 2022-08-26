@@ -90,8 +90,15 @@ cifar10_corr.sort(key=lambda y: y[1], reverse = True)
 cifar100_corr.sort(key=lambda y: y[1], reverse = True)
 imagenet_corr.sort(key=lambda y: y[1], reverse = True)
 
+print('convex combination of relu score and synflow: alpha*hook_lodget + (1-alpha)*synflow  \n')
+print('comb1: alpha = 0.2 \t comb2: alpha = 0.4 \t comb3: alpha = 0.5 \t comb4: alpha = 0.6 \t comb5: alpha = 0.8 \n')
+
+print('spearman correlations among different convex combinations and the test accuracy for each dataset: \n')
+print('cifar10:')
 print(cifar10_corr,'\n')
+print('cifar100:')
 print(cifar100_corr,'\n')
+print('ImageNet16-120:')
 print(imagenet_corr,'\n')
 
 """## Exporting the CSV files with the best convex combination according to the spearman correlation"""
