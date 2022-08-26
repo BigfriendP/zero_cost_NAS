@@ -34,6 +34,16 @@ args_score = args.score
 args_data_loc = args.data_loc + args_dataset
 args_save_loc = args.save_loc
 
+valid_datasets = ['cifar10', 'cifar100', 'ImageNet16-120']
+valid_metrics = ['hook_logdet', 'synflow', 'snip']
+
+if args_dataset not in valid_datasets:
+  print('ERROR -> INVALID DATASET: dataset must be cifar10 or cifar100 or ImageNet16-120')
+  quit()
+if args_score not in valid_metrics:
+  print('ERROR -> INVALID metric: metric must be hook_logdet or synflow or snip')
+  quit()
+
 if not(os.path.isdir('data')):
   os.system("mkdir data")
 
