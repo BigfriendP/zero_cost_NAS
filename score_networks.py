@@ -78,7 +78,7 @@ searchspace = create('NATS-tss-v1_0-3ffb9-simple', 'tss', fast_mode=True, verbos
 """## Scoring Network cycle"""
 
 results = []
-print('uid,\t score,\t execution_time')
+print(f'uid,\t {args_score} score,\t execution_time')
 for uid in range(len(searchspace)):
   config = searchspace.get_net_config(uid, args_dataset)
   network = get_cell_based_tiny_net(config)
