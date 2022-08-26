@@ -6,7 +6,7 @@ import types
 
 """# Score functions definition"""
 
-"""## Relu score function"""
+"""## hook_logdet score function"""
 
 def compute_score_metric(network, inputs, batch_size):
 
