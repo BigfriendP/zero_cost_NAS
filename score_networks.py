@@ -1,3 +1,6 @@
+# install xautodl package if it is not installed
+!pip install xautodl
+
 import random
 import numpy as np
 import torch
