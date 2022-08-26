@@ -99,6 +99,8 @@ for N in runs:
 # save the file containing the progress of the test accuracy of all the experiments
 np.save(f'{args_save_loc}/{args_dataset}/{args_score}/RandSearch_{args_dataset}-{args_score}', best_tests_progress)
 
+print(f'random search test accuracy progress file saved at {args_save_loc}/{args_dataset}/{args_score}/')
+
 # calculate the mean and std of the test accuracy and search time over all the experiments
 mean_acc = np.mean(top_acc)
 std_acc = np.std(top_acc)
