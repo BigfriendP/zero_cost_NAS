@@ -1,0 +1,116 @@
+all the experiments have been repeated 30 times with a max 500 visited models
+
+# CIFAR10
+
+## val12
+metric: val12 ; cifar10
+
+accuracy: 94.31833333333331 + 0.2054926330120438
+
+search time: 1612104.5379760875 + 79368.04937530211
+
+## relu score
+metric: hook_logdet ; cifar10
+
+accuracy: 92.67866666666667 + 0.3405557549392168
+
+search time: 1316.8889208157857 + 28.826695585382428
+
+## synflow
+metric: synflow ; cifar10
+
+accuracy: 93.748 + 0.17915356541247038
+
+search time: 1921.6341961383819 + 54.60088525413509
+
+## snip
+metric: snip ; cifar10
+
+accuracy: 86.4346666666667 + 2.9720293104581272
+
+search time: 1079.1918354908626 + 30.39949331599267
+
+## combined
+metric: combined ; cifar10
+
+accuracy: 93.76399999999998 + 0.15919798993706036
+
+search time: 3211.573607492447 + 93.08577411608258
+
+
+
+# CIFAR100
+
+## val12
+metric: val12 ; cifar100
+
+accuracy: 72.41133326782227 + 0.3840723291427408
+
+search time: 2455668.4735078607 + 55472.1437994704
+
+## relu score
+metric: hook_logdet ; cifar100
+
+accuracy: 69.93933331136067 + 0.7949756436824937
+
+search time: 1614.2440780321756 + 38.140611026299254
+
+## synflow
+metric: synflow ; cifar100
+
+accuracy: 71.06266660319012 + 0.8098022145730631
+
+search time: 1185.9389757633207 + 33.235593911842116
+
+## snip
+metric: snip ; cifar100
+
+accuracy: 49.371999980468736 + 2.145753005707767
+
+search time: 1080.7197702805202 + 31.34826853644119
+
+## combined
+metric: combined ; cifar100
+
+accuracy: 70.99533326619466 + 0.8130385152375403
+
+search time: 2864.3037956317266 + 77.0960521525438
+
+
+
+# IMAGENET16-120
+
+## val12
+metric: val12 ; ImageNet16-120
+
+accuracy: 46.05777769131131 + 0.624377252785234
+
+search time: 7325113.472364504 + 480285.5575806421
+
+## relu score
+metric: hook_logdet ; ImageNet16-120
+
+accuracy: 45.51111102159287 + 0.41573974009123743
+
+search time: 1362.4632486581802 + 39.585470937533756
+
+## synflow
+metric: synflow ; ImageNet16-120
+
+accuracy: 41.494444449869796 + 0.6467630759111597
+
+search time: 1136.9023078759512 + 31.531358721978332
+
+## snip
+metric: snip ; ImageNet16-120
+
+accuracy: 0.8333333311716712 + 3.114687241299756e-10
+
+search time: 912.6492126941681 + 23.996727522188284
+
+## combined
+metric: combined ; ImageNet16-120
+
+accuracy: 42.10444443766276 + 1.6628786368474247
+
+search time: 2517.4683442115784 + 78.50705672396343
