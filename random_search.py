@@ -90,7 +90,6 @@ for N in runs:
     uid = net_sample.iloc[idx,0]
     proxy = net_sample.iloc[idx,1]
     t = net_sample.iloc[idx,2]
-    #test_accuracy = searchspace.get_more_info(int(uid), args_dataset, hp = '200')['test-accuracy']
     test_accuracy = accuracies.loc[uid,'accuracy']
     if proxy > best_proxies[-1]:
       best_proxies.append(proxy)
