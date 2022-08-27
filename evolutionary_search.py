@@ -55,7 +55,7 @@ torch.manual_seed(args_seed)
 """## NATS-Bench initialization"""
 
 #installing libraries and download of the benchmark file
-os.system("pip install nats_bench")
+'''os.system("pip install nats_bench")
 if not(os.path.exists("NATS-tss-v1_0-3ffb9-simple")):
   os.system("wget 'https://www.dropbox.com/s/pasubh1oghex3g9/?dl=1' -O 'NATS-tss-v1_0-3ffb9-simple.tar'")
   os.system("tar xf 'NATS-tss-v1_0-3ffb9-simple.tar'")
@@ -65,7 +65,7 @@ from nats_bench import create
 
 #API initialization
 searchspace = create('NATS-tss-v1_0-3ffb9-simple', 'tss', fast_mode=True, verbose=False)
-
+'''
 """## Importing scores and accuracies of the network"""
 
 results = pd.read_csv(f'{args_save_loc}/{args_dataset}/{args_score}/{args_dataset}-{args_score}.csv')
@@ -169,8 +169,9 @@ def run_evolution_search(max_visited_models=1000,
     num_visited_models += 1
     pool.append((proxy[spec_idx], spec))
 
-    test_accuracy = searchspace.get_more_info(int(spec_idx), args_dataset, hp = '200')['test-accuracy']
-
+    #test_accuracy = searchspace.get_more_info(int(spec_idx), args_dataset, hp = '200')['test-accuracy']
+    test_accuracy = accuracies.loc[spec_idx,'accuracy']
+    
     if proxy[spec_idx] > best_proxies[-1]:
       best_proxies.append(proxy[spec_idx])
       best_proxy_id = spec_idx
@@ -200,7 +201,7 @@ def run_evolution_search(max_visited_models=1000,
     pool.append((proxy[new_spec_idx], new_spec))
     pool.pop(0)
 
-    test_accuracy = accuracies.loc[uid,'accuracy']
+    test_accuracy = accuracies.loc[new_spec_idx,'accuracy']
 
     if proxy[new_spec_idx] > best_proxies[-1]:
       best_proxies.append(proxy[new_spec_idx])
