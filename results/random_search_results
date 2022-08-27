@@ -9,7 +9,7 @@ accuracy: 93.9246666666667 + 0.24086972043455782
 
 search time: 73788.41425997984 + 724.912097309017
 
-## relu score
+## hook_logdet score
 metric: hook_logdet ; cifar10
 
 accuracy: 92.63466666666667 + 1.2318163643804856
@@ -48,7 +48,7 @@ accuracy: 72.11666661946614 + 0.8288640250201835
 
 search time: 113433.39750871774 + 1211.3244611161601
 
-## relu score
+## hook_logdet score
 metric: hook_logdet ; cifar100
 
 accuracy: 69.46733330240885 + 2.063740813265853
@@ -87,7 +87,7 @@ accuracy: 45.71222217034234 + 1.0232657830211067
 
 search time: 334931.77302663657 + 3610.2854852839014
 
-## relu score
+## hook_logdet score
 metric: hook_logdet ; ImageNet16-120
 
 accuracy: 43.4966666232639 + 3.1416361802917914
