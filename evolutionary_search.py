@@ -66,11 +66,12 @@ from nats_bench import create
 #API initialization
 searchspace = create('NATS-tss-v1_0-3ffb9-simple', 'tss', fast_mode=True, verbose=False)
 
-"""## Importing scores of the network"""
+"""## Importing scores and accuracies of the network"""
 
 results = pd.read_csv(f'{args_save_loc}/{args_dataset}/{args_score}/{args_dataset}-{args_score}.csv')
 proxy = results.iloc[:,1]
 t = results['time']
+accuracies = pd.read_csv(f'accuracy_full_trained_models/accuracy_{args_dataset}.csv')
 
 """# Evolutionary Search Definition"""
 
@@ -199,7 +200,7 @@ def run_evolution_search(max_visited_models=1000,
     pool.append((proxy[new_spec_idx], new_spec))
     pool.pop(0)
 
-    test_accuracy = searchspace.get_more_info(int(new_spec_idx), args_dataset, hp = '200')['test-accuracy']
+    test_accuracy = accuracies.loc[uid,'accuracy']
 
     if proxy[new_spec_idx] > best_proxies[-1]:
       best_proxies.append(proxy[new_spec_idx])
@@ -216,7 +217,8 @@ def run_evolution_search(max_visited_models=1000,
   search_time += (end_time-start_time)
   best_proxies.pop(0)    
   best_tests.pop(0) 
-  best_accuracy = searchspace.get_more_info(int(best_proxy_id), args_dataset, hp = '200')['test-accuracy']
+  #best_accuracy = searchspace.get_more_info(int(best_proxy_id), args_dataset, hp = '200')['test-accuracy']
+  best_accuracy = accuracies.loc[best_proxy_id,'accuracy']
 
   
   return best_proxy_id, best_accuracy, best_proxies, best_tests, search_time
