@@ -62,11 +62,11 @@ from nats_bench import create
 #API initialization
 searchspace = create('NATS-tss-v1_0-3ffb9-simple', 'tss', fast_mode=True, verbose=False)
 
-"""## Importing scores of the network"""
+"""## Importing scores and accuracies of the network"""
 
 
 results = pd.read_csv(f'{args_save_loc}/{args_dataset}/{args_score}/{args_dataset}-{args_score}.csv')
-
+accuracies = pd.read_csv(f'accuracy_full_trained_models/accuracy_{args_dataset}.csv')
 
 """## Execute the search """
 
@@ -90,7 +90,8 @@ for N in runs:
     uid = net_sample.iloc[idx,0]
     proxy = net_sample.iloc[idx,1]
     t = net_sample.iloc[idx,2]
-    test_accuracy = searchspace.get_more_info(int(uid), args_dataset, hp = '200')['test-accuracy']
+    #test_accuracy = searchspace.get_more_info(int(uid), args_dataset, hp = '200')['test-accuracy']
+    test_accuracy = accuracies.loc[uid,'accuracy']
     if proxy > best_proxies[-1]:
       best_proxies.append(proxy)
       best_proxy_id = uid
