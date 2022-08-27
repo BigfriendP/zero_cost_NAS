@@ -169,7 +169,6 @@ def run_evolution_search(max_visited_models=1000,
     num_visited_models += 1
     pool.append((proxy[spec_idx], spec))
 
-    #test_accuracy = searchspace.get_more_info(int(spec_idx), args_dataset, hp = '200')['test-accuracy']
     test_accuracy = accuracies.loc[spec_idx,'accuracy']
     
     if proxy[spec_idx] > best_proxies[-1]:
@@ -218,7 +217,6 @@ def run_evolution_search(max_visited_models=1000,
   search_time += (end_time-start_time)
   best_proxies.pop(0)    
   best_tests.pop(0) 
-  #best_accuracy = searchspace.get_more_info(int(best_proxy_id), args_dataset, hp = '200')['test-accuracy']
   best_accuracy = accuracies.loc[best_proxy_id,'accuracy']
 
   
