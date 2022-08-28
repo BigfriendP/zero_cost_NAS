@@ -1,0 +1,117 @@
+all the experiments have been repeated 30 times with a max 500 visited models
+
+# CIFAR10
+
+## val12
+metric: val12 ; cifar10
+
+accuracy: 94.51433333333333 + 0.19768128107863261
+
+search time: 1631786.7508135522 + 67379.11466437769
+
+## hook_logdet score
+metric: hook_logdet ; cifar10
+
+accuracy: 92.91899999999997 + 0.2070000000000036
+
+search time: 1314.1795237064362 + 36.8446041661996
+
+## synflow
+metric: synflow ; cifar10
+
+accuracy: 93.73999999999995 + 4.263256414560601e-14
+
+search time: 1929.5100566228232 + 55.2201213623386
+
+## snip
+metric: snip ; cifar10
+
+accuracy: 85.53533333333336 + 3.7366685102582404
+
+search time: 1089.265846212705 + 30.125009265503145
+
+## combined
+metric: combined ; cifar10
+
+accuracy: 93.73999999999995 + 4.263256414560601e-14
+
+search time: 3231.3241328954696 + 93.52681780320304
+
+
+
+# CIFAR100
+
+## val12
+metric: val12 ; cifar100
+
+accuracy: 72.43866659342447 + 0.4373536468254195
+
+search time: 2454234.6745024417 + 117811.77875775185
+
+## hook_logdet score
+metric: hook_logdet ; cifar100
+
+accuracy: 69.18666661132812 + 0.7831617036393594
+
+search time: 1608.1058087031047 + 45.70978677444926
+
+## synflow
+metric: synflow ; cifar100
+
+accuracy: 71.99999998779298 + 1.4210854715202004e-14
+
+search time: 1191.1262805700303 + 33.374282932916664
+
+## snip
+metric: snip ; cifar100
+
+accuracy: 47.61999998779295 + 1.4210854715202004e-14
+
+search time: 1086.5530167341233 + 30.114959963150547
+
+## combined
+metric: combined ; cifar100
+
+accuracy: 71.99999998779298 + 1.4210854715202004e-14
+
+search time: 2875.3681963364284 + 81.88707267786404
+
+
+
+# IMAGENET16-120
+
+## val12
+metric: val12 ; ImageNet16-120
+
+accuracy: 46.405555510796454 + 0.6368954694984312
+
+search time: 7339394.067406446 + 429214.20995308657
+
+## hook_logdet score
+metric: hook_logdet ; ImageNet16-120
+
+accuracy: 45.06666654459634 + 7.105427357601002e-15
+
+search time: 1366.3161086320877 + 38.63829137432038
+
+## synflow
+metric: synflow ; ImageNet16-120
+
+accuracy: 42.366666676839216 + 1.4210854715202004e-14
+
+search time: 1142.6735365708669 + 32.24234129523616
+
+## snip
+metric: snip ; ImageNet16-120
+
+accuracy: 0.8333333307902014 + 3.3306690738754696e-16
+
+search time: 919.4152700901031 + 24.716932891538924
+
+## combined
+metric: combined ; ImageNet16-120
+
+accuracy: 42.54666666802302 + 0.6734982966321451
+
+search time: 2533.1950048685076 + 71.4432100893642
+
