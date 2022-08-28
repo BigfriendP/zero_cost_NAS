@@ -148,7 +148,7 @@ def run_evolution_search(max_visited_models=1000,
   start_time = time.time()
   # fill the initial pool
   pool_init_time = 0.0
-  if zero_cost_warmup > 0:
+  if zero_cost_warmup > pool_size:
     zero_cost_pool = []
     for _ in range(zero_cost_warmup):
       spec = random.choice(list(idx_to_spec.values()))
@@ -158,7 +158,7 @@ def run_evolution_search(max_visited_models=1000,
       zero_cost_pool = sorted(zero_cost_pool, key=lambda i:i[0], reverse=True)
 
   for i in range(pool_size):
-    if zero_cost_warmup > 0:
+    if zero_cost_warmup > pool_size:
       spec = zero_cost_pool[i][1]
       
     else:
