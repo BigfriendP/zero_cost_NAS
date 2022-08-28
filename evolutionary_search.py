@@ -155,8 +155,8 @@ def run_evolution_search(max_visited_models=1000,
       spec_idx = spec_to_idx[str(spec)]
       pool_init_time += t[spec_idx]
       zero_cost_pool.append((proxy[spec_idx], spec))
-      #zero_cost_pool = sorted(zero_cost_pool, key=lambda i:i[0], reverse=True)
     zero_cost_pool = sorted(zero_cost_pool, key=lambda i:i[0], reverse=True)    
+  
   for i in range(pool_size):
     if zero_cost_warmup > pool_size:
       spec = zero_cost_pool[i][1]
