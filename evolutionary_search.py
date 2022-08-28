@@ -240,7 +240,7 @@ for N in runs:
   search_times.append(search_time)
   best_tests_progress.append(best_tests)
 
-if warmup == 0:
+if warmup <= pool_size:
   exp_name = 'AEVsearch'
 else:
   exp_name = 'AEVsearchWU'
