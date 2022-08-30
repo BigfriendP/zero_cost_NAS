@@ -28,4 +28,5 @@ traditional NAS.
 - Result_analysis.ipynb is a colab notebook that show some details about the free-training metrics and some plots about the search experiment performed.
 
 # Guide for running scripts  
- 
+score_networks.py, random_search.py and evolutionary_search.py take command line inputs, in particular all of them require two mandatory inputs: --dataset (-d) and --score (-s). For all the three script the accepted datasets are "cifar10", "cifar100" and "ImageNet16-120", while the accepted scores change between score_networks.py and random_search.py, evolutionary_search.py.
+The valid scores taken by score_networks.py are ["hook_logdet",  ]
