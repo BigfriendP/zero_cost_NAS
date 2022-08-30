@@ -29,4 +29,7 @@ traditional NAS.
 
 # Guide for running scripts  
 score_networks.py, random_search.py and evolutionary_search.py take command line inputs, in particular all of them require two mandatory inputs: --dataset (-d) and --score (-s). For all the three script the accepted datasets are "cifar10", "cifar100" and "ImageNet16-120", while the accepted scores change between score_networks.py and random_search.py, evolutionary_search.py.
-The valid scores taken by score_networks.py are ["hook_logdet",  ]
+In particular the valid scores for them are:
+- score_networks.py: ["hook_logdet", "synflow", "snip"] that are the available metrics to score directly the architectures ("combined" is then computed starting from "hook_logdet" and "synflow" with metrics_convex_combination.py).
+- random_search.py, evolutionary_search.py: ["val12", "hook_logdet", "synflow", "snip", "combined"] that are all the available metrics that the search algorithms can exploit. In particular "val12" leads to use the validation accuracy after 12 epochs as proxy for the search.
+
