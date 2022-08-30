@@ -21,15 +21,15 @@ while requiring computation time orders of magnitude lower than
 traditional NAS.
 
 # Script details
-- ## score_networks.py scores the networks on a particular dataset with a specific free-training metric.
-- random_search.py execute the random search on a particular dataset with a specific free-training metric.
-- evolutionary_search.py execute the evolutionary search on a particular dataset with a specific free-training metric. By default it does not take advantage of the warmup initializion, to perform it just change the parameter "warmup" inside the script to a number greater than "pool_size".
-- metrics_convex_combination.py compute the convex combination of hook_logdet score and synflow for all the datasets, and save the new metrics combined inside a CSV.
-- Result_analysis.ipynb is a colab notebook that show some details about the free-training metrics and some plots about the search experiment performed.
+- **score_networks.py** scores the networks on a particular dataset with a specific free-training metric.
+- **random_search.py** executes the random search on a particular dataset with a specific free-training metric.
+- **evolutionary_search.py** executes the evolutionary search on a particular dataset with a specific free-training metric. By default it does not take advantage of the warmup initializion, to perform it just change the parameter "warmup" inside the script to a number greater than "pool_size".
+- **metrics_convex_combination.py** computes the convex combination of hook_logdet score and synflow for all the datasets, and save the new metrics combined inside a CSV.
+- **Result_analysis.ipynb** is a colab notebook that shows some details about the free-training metrics and some plots about the search experiment performed.
 
 # Guide for running scripts  
-score_networks.py, random_search.py and evolutionary_search.py take command line inputs, in particular all of them require two mandatory inputs: --dataset (-d) and --score (-s). For all the three script the accepted datasets are "cifar10", "cifar100" and "ImageNet16-120", while the accepted scores change between score_networks.py and random_search.py, evolutionary_search.py.
+**score_networks.py**, **random_search.py** and **evolutionary_search.py** take command line inputs, in particular all of them require two mandatory inputs: **--dataset (-d)** and **--score (-s)**. For all the three script the accepted datasets are *"cifar10", "cifar100"* and *"ImageNet16-120"*, while the accepted scores change between score_networks.py and random_search.py, evolutionary_search.py.
 In particular the valid scores for them are:
-- score_networks.py: ["hook_logdet", "synflow", "snip"] that are the available metrics to score directly the architectures ("combined" is then computed starting from "hook_logdet" and "synflow" with metrics_convex_combination.py).
-- random_search.py, evolutionary_search.py: ["val12", "hook_logdet", "synflow", "snip", "combined"] that are all the available metrics that the search algorithms can exploit. In particular "val12" leads to use the validation accuracy after 12 epochs as proxy for the search.
+- **score_networks.py**: [*"hook_logdet", "synflow", "snip"*] that are the available metrics to score directly the architectures ("combined" is then computed starting from "hook_logdet" and "synflow" with metrics_convex_combination.py).
+- **random_search.py**, **evolutionary_search.py**: [*"val12", "hook_logdet", "synflow", "snip", "combined"*] that are all the available metrics that the search algorithms can exploit. In particular "val12" leads to use the validation accuracy after 12 epochs as proxy for the search.
 
