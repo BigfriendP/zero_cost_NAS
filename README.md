@@ -19,3 +19,13 @@ we implement is often able to find networks whose performance
 are near to the best architecture in the search space we explore,
 while requiring computation time orders of magnitude lower than
 traditional NAS.
+
+# Script details
+- score_networks.py score the networks on a particular dataset with a specific free-training metric.
+- random_search.py execute the random search on a particular dataset with a specific free-training metric.
+- evolutionary_search.py execute the evolutionary search on a particular dataset with a specific free-training metric. By default it does not take advantage of the warmup initializion, to perform it just change the parameter "warmup" inside the script to a number greater than "pool_size".
+- metrics_convex_combination.py compute the convex combination of hook_logdet score and synflow for all the datasets, and save the new metrics combined inside a CSV.
+- Result_analysis.ipynb is a colab notebook that show some details about the free-training metrics and some plots about the search experiment performed.
+
+# Guide for running scripts  
+ 
